@@ -1,0 +1,43 @@
+/* SASS */
+$swatch_1: #fcfcfd;
+$swatch_2: #0b0a0f;
+$swatch_3: #0e9ffd;
+$swatch_4: #2f19b3;
+$swatch_5: #4d3c4c;
+$swatch_6: #b4a6a2;
+$swatch_7: #d78a31;
+$swatch_8: #4fc7f7;
+
+@font-face {
+    font-family: "Poppins Regular";
+    src: url("../assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Poppins Semi Bold";
+    src: url("../assets/fonts/Poppins-SemiBold.ttf");
+}
+
+body{
+    font-family: "Poppins Regular" !important;
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    h1,h2, h3, h4, h5, h6{
+        font-family: "Poppins Semi Bold";
+    }
+
+    .underline{
+        transition: width .5s;
+    }
+
+
+    .navigation-link:hover .underline{
+        width: 100%;
+    }
+
+    .play-btn{
+        left: calc(-1 * 2.5rem / 2);
+    }
+}
