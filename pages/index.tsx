@@ -12,8 +12,20 @@ import puppy from "../images/puppy-tp-bg.png";
 import pitBull from "../images/pit-bull-tp-bg.png";
 import styles from "../styles/modules/home.module.scss";
 import Underline from "../components/Underline";
-
+import Footer from "../components/Footer";
+import getSavedUser from "../utils/getSavedUser";
+import {useEffect} from "react"
+import { useRouter } from "next/router"
 function Top() {
+
+  let router = useRouter();
+  useEffect(()=>{
+    let user = getSavedUser()
+    if(user){
+      router.push("/home");
+    }
+  }, [])
+
   return (<section className="container py-32">
   <h1>
     Your Pet
@@ -124,6 +136,7 @@ export default function Home() {
       <section className="container text-light text-sm">
         <Middle/>
       </section>
+      <Footer/>
     </main>
   );
 }

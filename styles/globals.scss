@@ -6,7 +6,7 @@ $swatch_4: #2f19b3;
 $swatch_5: #4d3c4c;
 $swatch_6: #b4a6a2;
 $swatch_7: #d78a31;
-$swatch_8: #4fc7f7;
+$swatch_8: #4fc7f7; 
 
 @font-face {
     font-family: "Poppins Regular";
@@ -16,6 +16,10 @@ $swatch_8: #4fc7f7;
 @font-face {
     font-family: "Poppins Semi Bold";
     src: url("../assets/fonts/Poppins-SemiBold.ttf");
+}
+
+html{
+    overflow-x: hidden;
 }
 
 body{

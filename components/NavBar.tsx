@@ -66,7 +66,7 @@ function NavBar() {
       </div>
       <Link
         className="rounded-full py-3 px-8 bg-light flex items-center gap-2"
-        href="#"
+        href="/sign-in"
       >
         <span>Sign In</span>
         <Image src={ArrowRight} alt="sign in" className="w-4" />
