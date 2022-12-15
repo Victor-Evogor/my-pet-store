@@ -31,7 +31,7 @@ function NavBar() {
         <Link href="/">
           <Image src={logo} alt="logo" className="w-40" />
         </Link>
-        <ul className="flex items-center gap-4">
+        <ul className="items-center gap-4 hidden md:flex">
           <li>
             <Link href="#" className="navigation-link">
               <span>About</span>

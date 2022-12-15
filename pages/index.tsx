@@ -43,14 +43,14 @@ function Top() {
         <Image src={arrowRight} alt="Our services" className="w-10" />
       </span>
     </div>
-    <div className="navigation-link">
+    <div className="navigation-link ml-2 md:ml-0">
       <Link href="#">Schedule a Call</Link>
       <Underline/>
     </div>
   </div>
   <div>
-    <div className="w-1/2 flex justify-end">
-      <div className="flex items-center gap-3">
+    <div className="md:w-1/2 flex md:justify-end">
+      <div className="flex items-center gap-3 flex-col md:flex-row">
         <div className="relative">
           <Link href="#" className="absolute top-1/4 play-btn">
             <Image src={playBtn} alt="Play" className="w-10" />
@@ -61,9 +61,9 @@ function Top() {
             className="w-40 rounded-lg"
           />
         </div>
-        <div>
+        <div className="ml-2 md:ml-0 mt-2 md:mt-0">
           <Image src={dogFace} alt="Dog Face" className="w-10" />
-          <h6>
+          <h6 >
             How to Take Care
             <br /> of Your Pets
           </h6>
@@ -80,8 +80,8 @@ function Top() {
 
 function Middle(){
   return (<section className="bg-dark rounded-3xl px-10 py-10">
-  <div className={"row flex-nowrap w-full mx-0 " + styles.display}>
-    <div className="col-md-3 rounded-lg relative">
+  <div className={"row md:flex-nowrap w-full mx-0" + styles.display}>
+    <div className="col-12 col-md-3 rounded-lg relative">
       <div className="flex items-center gap-x-2">
         <h6 className="mb-0">My Pet Store</h6>{" "}
         <Image src={dogHead} alt="dog head" className="w-16" />
@@ -92,24 +92,24 @@ function Middle(){
       </p>
       <div className="pipe border-l h-1/2 absolute right-0 top-1/4"></div>
     </div>
-    <div className="col-md-3 cursor-pointer rounded-lg">
+    <div className="col-md-3 cursor-pointer rounded-lg mt-4 md:mt-0">
       <div className="flex flex-col items-center justify-between">
         <Image src={puppy} alt="Puppy" className="w-16" />
         <h6 className="mb-0">Adopt a Puppy</h6>
       </div>
       <div className={styles.circle}></div>
     </div>
-    <div className="col-md-3 cursor-pointer rounded-lg">
-      <div className="flex flex-col">
+    <div className="col-md-3 cursor-pointer rounded-lg mt-4 md:mt-0">
+      <div className="flex flex-col md:items-start items-center">
         <Image src={pitBull} alt="Puppy" className="w-16" />
         <h6 className="mb-0">Feed with Love</h6>
         <p className="mt-0 mb-0 text-xs">
-          Feed your pet with love ad care
+          Feed your pet with love and care
         </p>
       </div>
       <div className={styles.circle}></div>
     </div>
-    <div className="col-md-3 flex justify-center items-center flex-col cursor-pointer rounded-lg">
+    <div className="col-md-3 flex justify-center items-center flex-col cursor-pointer rounded-lg mt-4 md:mt-0">
       <div className="rounded-full bg-green p-3 flex items-center justify-center w-24 h-24 text-lg">
         <span>55+</span>
       </div>
@@ -128,7 +128,7 @@ export default function Home() {
           backgroundImage: `url(${bg.src})`,
           backgroundSize: "cover",
         }}
-        className="pb-10 text-dark"
+        className="md:pb-10 text-dark"
       >
         <NavBar />
         <Top/>

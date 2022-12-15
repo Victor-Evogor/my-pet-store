@@ -129,10 +129,10 @@ const Home: FunctionComponent<HomeProps> = () => {
           <main>
             <HomeNavBar />
             <section className="flex">
-              <section className="py-10 px-6 w-72">
+              <section className="py-10 px-6 w-72 hidden sm:block">
                 <SideBar />
               </section>
-              <section className="row flex-wrap gap-y-2 gap-x-2 w-full">
+              <section className="row flex-wrap gap-y-2 md:gap-x-2 mx-3 my-4 md:mx-0 md:my-0 w-full">
                 {pets ? (
                   pets?.dogs.map(
                     ({ name, price, description, image_url }, index) => (
