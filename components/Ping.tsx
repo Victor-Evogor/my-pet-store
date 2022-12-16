@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { setPingContext } from "../pages/home"
+import { SetPingContext } from "../pages/home"
 import { motion } from "framer-motion";
 
 interface PingProps {
@@ -8,7 +8,7 @@ interface PingProps {
 }
 
 const Ping: FunctionComponent<PingProps> = ({ message, visible }) => {
-  let setPing = useContext(setPingContext);
+  let setPing = useContext(SetPingContext);
   const openAnimation = {
     bottom: "2.54rem",
     opacity: 1,

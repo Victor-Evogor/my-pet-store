@@ -2,7 +2,6 @@ import logo from "../assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
-import bell from "../assets/bell.svg";
 import cart from "../assets/cart.svg";
 import {
   getUser,
@@ -15,23 +14,25 @@ import getSavedUser from "../utils/getSavedUser";
 import deleteSavedUser from "../utils/deleteSavedUser";
 import decimalPoints from "../utils/decimalPoints";
 import { useRouter } from "next/router";
-import { UserContext, SetUserContext, setPingContext, setPingMessageContext } from "../pages/home";
+import { UserContext, SetUserContext, SetPingContext, SetPingMessageContext, SideBarOpenContext, SetSideBarOpenContext } from "../pages/home";
 import User from "../types/User";
 import DropDown from "./DropDown";
 import CartItem from "../types/CartItem";
 import Notification from "../types/Notification";
 import ping from "../utils/ping";
-
+import { Divide as Hamburger } from "hamburger-react"
 function NavBar() {
   const [bgVisible, setBgVisible] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const router = useRouter();
-  const setPing = useContext(setPingContext);
+  const setPing = useContext(SetPingContext);
   
 
   let user = useContext(UserContext);
   let setUser = useContext(SetUserContext);
-  let setPingMessage = useContext(setPingMessageContext)
+  let setPingMessage = useContext(SetPingMessageContext)
+  let setSideBarOPen = useContext(SetSideBarOpenContext);
+  let sideBarOpen = useContext(SideBarOpenContext);
 
   function checkOut() {
     const priceOfCart = cartValue();
@@ -207,8 +208,9 @@ function NavBar() {
                 <CartDropDown />
               </ul>
             </div>
+            <div className="block sm:hidden"><Hamburger toggled={sideBarOpen!} toggle={setSideBarOPen!}/></div>
             <div
-              className="ml-2 cursor-pointer hover:bg-brown-100 transition px-3 py-1 rounded-md"
+              className="ml-2 cursor-pointer hover:bg-brown-100 transition px-3 py-1 rounded-md hidden sm:block"
               onClick={LogOut}
             >
               <span>Log Out</span>

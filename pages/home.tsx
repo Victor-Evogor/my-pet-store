@@ -20,8 +20,9 @@ import getSavedUser from "../utils/getSavedUser";
 import CartItem from "../types/CartItem";
 import deleteSavedUser from "../utils/deleteSavedUser";
 import { useRouter } from "next/router";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 import Ping from "../components/Ping";
+import SlidingNavBar from "../components/SlidingNavBar";
 
 export const UserContext = createContext<User>({
   cart: [],
@@ -33,8 +34,16 @@ export const SetUserContext = createContext<Dispatch<
   SetStateAction<User>
 > | null>(null);
 
-export const setPingContext = createContext<Dispatch<SetStateAction<boolean>> | null>(null)
-export const setPingMessageContext = createContext<Dispatch<SetStateAction<string>> | null>(null)
+export const SetPingContext = createContext<Dispatch<
+  SetStateAction<boolean>
+> | null>(null);
+export const SetPingMessageContext = createContext<Dispatch<
+  SetStateAction<string>
+> | null>(null);
+export const SideBarOpenContext = createContext<boolean | null>(null);
+export const SetSideBarOpenContext = createContext<Dispatch<
+  SetStateAction<boolean>
+> | null>(null);
 
 function LoadingSkeleton() {
   // create an a 9 length array filled with zeros
@@ -59,8 +68,8 @@ function LoadingSkeleton() {
 interface HomeProps {}
 
 const Home: FunctionComponent<HomeProps> = () => {
-
   const [pingVisible, setPingVisible] = useState<boolean>(false);
+  const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const [pingMessage, setPingMessage] = useState<string>("");
 
   let [user, setUser] = useState<User>({
@@ -71,16 +80,17 @@ const Home: FunctionComponent<HomeProps> = () => {
 
   const router = useRouter();
   function addPetToCart({ name, price }: Pet) {
-
     const cart: CartItem = { name, price, quantity: 1 };
     // check if user have the cart item already
-    
-    if(user.cart.find((cartItem:CartItem)=>{
-      return (cartItem.name === cart.name) && (cartItem.price === cart.price)
-    })){
+
+    if (
+      user.cart.find((cartItem: CartItem) => {
+        return cartItem.name === cart.name && cartItem.price === cart.price;
+      })
+    ) {
       // update the quantity of the selected cart
-      console.log("Item already in cart")
-       updateCartItem(getSavedUser()!, cart).then(() => {
+      console.log("Item already in cart");
+      updateCartItem(getSavedUser()!, cart).then(() => {
         getUser(getSavedUser()!)
           .then((user) => {
             setUser(user as User);
@@ -89,8 +99,8 @@ const Home: FunctionComponent<HomeProps> = () => {
             deleteSavedUser();
             router.push("/sign-in");
           });
-      })
-    }else{
+      });
+    } else {
       addToCart(
         getSavedUser()! /* get saved user from local storage */,
         cart
@@ -105,10 +115,7 @@ const Home: FunctionComponent<HomeProps> = () => {
           });
       });
     }
-
   }
-
-  
 
   let [pets, setPets] = useState<Pets | null>(null);
 
@@ -120,47 +127,55 @@ const Home: FunctionComponent<HomeProps> = () => {
 
   return (
     <>
-    <ProtectedRoute>
-      <UserContext.Provider value={user}>
-        <SetUserContext.Provider value={setUser}>
-          <setPingContext.Provider value={setPingVisible}>
-            <setPingMessageContext.Provider value={setPingMessage}>
-
-          <main>
-            <HomeNavBar />
-            <section className="flex">
-              <section className="py-10 px-6 w-72 hidden sm:block">
-                <SideBar />
-              </section>
-              <section className="row flex-wrap gap-y-2 md:gap-x-2 mx-3 my-4 md:mx-0 md:my-0 w-full">
-                {pets ? (
-                  pets?.dogs.map(
-                    ({ name, price, description, image_url }, index) => (
-                      <div className="col-md-3" key={index}>
-                        <Listing
-                          name={name}
-                          description={description}
-                          image={"/pets/dogs/" + image_url}
-                          price={price}
-                          addToCart={addPetToCart}
-                        />
-                      </div>
-                    )
-                  )
-                ) : (
-                  <LoadingSkeleton />
-                )}
-              </section>
-            </section>
-          </main>
-    <Ping message={pingMessage} visible={pingVisible}/>
-          
-            </setPingMessageContext.Provider>
-          </setPingContext.Provider>
-        </SetUserContext.Provider>
-      </UserContext.Provider>
-    </ProtectedRoute>
-    <Footer/>
+      <ProtectedRoute>
+        <UserContext.Provider value={user}>
+          <SetUserContext.Provider value={setUser}>
+            <SetPingContext.Provider value={setPingVisible}>
+              <SetPingMessageContext.Provider value={setPingMessage}>
+                <SetSideBarOpenContext.Provider value={setSideBarOpen}>
+                  <SideBarOpenContext.Provider value={sideBarOpen}>
+                    <main>
+                      <HomeNavBar />
+                      <section className="flex">
+                        <section className="py-10 px-6 w-72 hidden sm:block">
+                          <SideBar />
+                        </section>
+                        <section className="row flex-wrap gap-y-2 md:gap-x-2 mx-3 my-4 md:mx-0 md:my-0 w-full">
+                          {pets ? (
+                            pets?.dogs.map(
+                              (
+                                { name, price, description, image_url },
+                                index
+                              ) => (
+                                <div className="col-md-3" key={index}>
+                                  <Listing
+                                    name={name}
+                                    description={description}
+                                    image={"/pets/dogs/" + image_url}
+                                    price={price}
+                                    addToCart={addPetToCart}
+                                  />
+                                </div>
+                              )
+                            )
+                          ) : (
+                            <LoadingSkeleton />
+                          )}
+                        </section>
+                      </section>
+                    </main>
+                    <Ping message={pingMessage} visible={pingVisible} />
+                    <SlidingNavBar open={sideBarOpen}>
+                      <SideBar/>
+                    </SlidingNavBar>
+                  </SideBarOpenContext.Provider>
+                </SetSideBarOpenContext.Provider>
+              </SetPingMessageContext.Provider>
+            </SetPingContext.Provider>
+          </SetUserContext.Provider>
+        </UserContext.Provider>
+      </ProtectedRoute>
+      <Footer />
     </>
   );
 };
