@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { setPingContext } from "../pages/home"
+import { SetPingContext } from "../pages/home"
 import { motion } from "framer-motion";
 
 interface PingProps {
@@ -8,7 +8,7 @@ interface PingProps {
 }
 
 const Ping: FunctionComponent<PingProps> = ({ message, visible }) => {
-  let setPing = useContext(setPingContext);
+  let setPing = useContext(SetPingContext);
   const openAnimation = {
     bottom: "2.54rem",
     opacity: 1,
@@ -20,7 +20,7 @@ const Ping: FunctionComponent<PingProps> = ({ message, visible }) => {
     transform: "scale(0)"
   }
   return (
-    <motion.div className="fixed right-10 px-5 py-3 max-w-md border-2 shadow-md rounded-sm bg-light" style={{
+    <motion.div className="fixed sm:right-10 mx-3 sm:mx-0 px-5 py-3 max-w-md border-2 shadow-md rounded-sm bg-light" style={{
       display: visible?"block":"none"
     }} animate={visible? openAnimation: closedAnimation }>
         <div className="flex justify-end">
